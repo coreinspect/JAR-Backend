@@ -22,7 +22,6 @@ const registerUser = async (req, res, next) => {
       token: await user.getJWTToken(),
     });
   } catch (error) {
-    // res.status(500).json({ message: error.message });
     next(error);
   }
 };
