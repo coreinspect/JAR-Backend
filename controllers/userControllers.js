@@ -34,7 +34,7 @@ const loginUser = async (req, res, next) => {
 
       // Condition for the user
       if (!user) {
-         throw new Error("Email Credentials do not match");
+         throw new Error("Email not registered, you might need to register");
       }
 
       if (await user.comparePassword(password)) {

@@ -2,6 +2,11 @@ import express from "express";
 import { errorResponserHandler } from "./middleware/errorHandler.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Routes
 import userRoutes from "./routes/userRoutes.js";
@@ -19,7 +24,12 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+
+//Static Assests
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
 app.use(errorResponserHandler);
+// app.use(invalidPathHandler);
 
 const PORT = process.env.PORT || 5000;
 
