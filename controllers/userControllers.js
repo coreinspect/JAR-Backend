@@ -18,7 +18,8 @@ const registerUser = async (req, res, next) => {
          name: user.name,
          email: user.email,
          verified: user.verified,
-         admin: user.admin,
+         // admin: user.admin,
+         role: user.role,
          token: await user.getJWTToken(),
       });
    } catch (error) {
@@ -44,7 +45,8 @@ const loginUser = async (req, res, next) => {
             name: user.name,
             email: user.email,
             verified: user.verified,
-            admin: user.admin,
+            // admin: user.admin,
+            role: user.role,
             token: await user.getJWTToken(),
          });
       } else {
@@ -67,7 +69,8 @@ const userProfile = async (req, res, next) => {
             name: user.name,
             email: user.email,
             verified: user.verified,
-            admin: user.admin,
+            // admin: user.admin,
+            role: user.role,
          });
       } else {
          let error = new Error("User not found");
@@ -112,7 +115,8 @@ const updateProfile = async (req, res, next) => {
          name: updatedUserProfile.name,
          email: updatedUserProfile.email,
          verified: updatedUserProfile.verified,
-         admin: updatedUserProfile.admin,
+         // admin: updatedUserProfile.admin,
+         role: updatedUserProfile.role,
          token: await updatedUserProfile.getJWTToken(),
       });
    } catch (error) {
@@ -148,7 +152,8 @@ const updateProfilePicture = async (req, res, next) => {
                   name: updatedUser.name,
                   email: updatedUser.email,
                   verified: updatedUser.verified,
-                  admin: updatedUser.admin,
+                  // admin: updatedUser.admin,
+                  role: updatedUser.role,
                   token: await updatedUser.getJWTToken(),
                });
             } else {
@@ -168,7 +173,8 @@ const updateProfilePicture = async (req, res, next) => {
                   name: updatedUser.name,
                   email: updatedUser.email,
                   verified: updatedUser.verified,
-                  admin: updatedUser.admin,
+                  // admin: updatedUser.admin,
+                  role: updatedUser.role,
                   token: await updatedUser.getJWTToken(),
                });
             }

@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 
 // Routes
 import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 
 // Configuration
 dotenv.config();
@@ -24,6 +26,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
 
 //Static Assests
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
