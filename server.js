@@ -23,7 +23,7 @@ const app = express();
 
 app.use(
    cors({
-      origin: "https://jarcommunity-api.onrender.com",
+      origin: "https://jarcommunity.vercel.app",
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
    })
