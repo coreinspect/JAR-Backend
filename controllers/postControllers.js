@@ -81,6 +81,7 @@ const createPost = async (req, res, next) => {
 
 const updatePost = async (req, res, next) => {
    try {
+      // const upload = util.promisify(uploadPicture.single("postPicture"));
       const post = await Post.findOne({ slug: req.params.slug });
       if (!post) {
          throw new Error("Post not found");
@@ -100,7 +101,7 @@ const updatePost = async (req, res, next) => {
          const updatedPost = await post.save();
          return res.json(updatedPost);
       };
-      upload(req, res, async function (err) {
+      await upload(req, res, async function (err) {
          if (err) {
             const error = new Error(
                "An unknown error occured when uploading " + err.message
@@ -138,6 +139,12 @@ const deletePost = async (req, res, next) => {
       if (!post) {
          const error = new Error("Post was not found");
          return next(error);
+      }
+
+      // Delete the associated picture if it exists
+      if (post.photo) {
+         console.log("Deleting photo:", post.photo);
+         fileRemover(post.photo);
       }
       // delete the comments under that post
       await Comment.deleteMany({ post: post._id });
