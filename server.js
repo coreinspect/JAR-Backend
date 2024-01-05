@@ -21,13 +21,13 @@ const app = express();
 
 // Middlewarre
 
-app.use(
-   cors({
-      origin: "https://jarcommunity.vercel.app",
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true,
-   })
-);
+// app.use(
+//    cors({
+//       origin: "https://jarcommunity.vercel.app",
+//       methods: ["GET", "POST", "PUT", "DELETE"],
+//       credentials: true,
+//    })
+// );
 
 app.use(express.json());
 

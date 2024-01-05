@@ -79,54 +79,96 @@ const createPost = async (req, res, next) => {
 
 // updating post controllers
 
+// const updatePost = async (req, res, next) => {
+//    try {
+//       console.log("Received request to update post:", req.params.slug);
+//       console.log("Request Body:", req.body);
+//       console.log("Request Headers:", req.headers);
+//       // const upload = util.promisify(uploadPicture.single("postPicture"));
+//       const post = await Post.findOne({ slug: req.params.slug });
+//       if (!post) {
+//          throw new Error("Post not found");
+//       }
+
+//       //  updating the picture of the post
+
+//       const handleUpdatePostData = async (data) => {
+//          const { title, caption, slug, body, tags, categories } =
+//             JSON.parse(data);
+//          post.title = title || post.title;
+//          post.caption = caption || post.caption;
+//          post.slug = slug || post.slug;
+//          post.body = body || post.body;
+//          post.tags = tags || post.tags;
+//          post.categories = categories || post.categories;
+//          const updatedPost = await post.save();
+//          return res.json(updatedPost);
+//       };
+//       await upload(req, res, async function (err) {
+//          if (err) {
+//             const error = new Error(
+//                "An unknown error occured when uploading " + err.message
+//             );
+//             next(error);
+//          } else {
+//             // every thing went well
+//             if (req.file) {
+//                let filename;
+//                filename = post.photo;
+//                if (filename) {
+//                   fileRemover(filename);
+//                }
+//                post.photo = req.file.filename;
+//                handleUpdatePostData(req.body.document);
+//             } else {
+//                let filename;
+//                filename = post.photo;
+//                post.photo = "";
+//                fileRemover(filename);
+//                handleUpdatePostData(req.body.document);
+//             }
+//          }
+//       });
+//    } catch (error) {
+//       next(error);
+//    }
+// };
+
 const updatePost = async (req, res, next) => {
    try {
-      // const upload = util.promisify(uploadPicture.single("postPicture"));
+      console.log("Received request to update post:", req.params.slug);
+
+      // Log request body and headers
+      console.log("Request Body:", req.body);
+      console.log("Request Headers:", req.headers);
+
       const post = await Post.findOne({ slug: req.params.slug });
+      console.log("Found Post:", post);
       if (!post) {
          throw new Error("Post not found");
       }
 
-      //  updating the picture of the post
-
       const handleUpdatePostData = async (data) => {
-         const { title, caption, slug, body, tags, categories } =
-            JSON.parse(data);
+         const { title, caption } = data; // Access values directly from req.body
+         // ... rest of your code
          post.title = title || post.title;
          post.caption = caption || post.caption;
-         post.slug = slug || post.slug;
-         post.body = body || post.body;
-         post.tags = tags || post.tags;
-         post.categories = categories || post.categories;
+         // ... additional fields
+         console.log(
+            "After Update - Title:",
+            post.title,
+            "Caption:",
+            post.caption
+         );
          const updatedPost = await post.save();
          return res.json(updatedPost);
       };
-      await upload(req, res, async function (err) {
-         if (err) {
-            const error = new Error(
-               "An unknown error occured when uploading " + err.message
-            );
-            next(error);
-         } else {
-            // every thing went well
-            if (req.file) {
-               let filename;
-               filename = post.photo;
-               if (filename) {
-                  fileRemover(filename);
-               }
-               post.photo = req.file.filename;
-               handleUpdatePostData(req.body.document);
-            } else {
-               let filename;
-               filename = post.photo;
-               post.photo = "";
-               fileRemover(filename);
-               handleUpdatePostData(req.body.document);
-            }
-         }
-      });
+
+      // No need for upload middleware here, multer takes care of it
+
+      handleUpdatePostData(req.body); // Assuming req.body contains the form data
    } catch (error) {
+      console.error("Update Post Error:", error);
       next(error);
    }
 };
